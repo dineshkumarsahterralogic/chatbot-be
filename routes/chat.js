@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { sendMessageToGemini } = require('../services/geminiService');
+const authenticToken  =require("../routes/midleware/authMiddleware")
 
-router.post('/', async (req, res) => {
+router.post('/', authenticToken, async (req, res) => {
   try {
     const userMessage = req.body.message;
     const response = await sendMessageToGemini(userMessage);
